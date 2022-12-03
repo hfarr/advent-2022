@@ -63,12 +63,13 @@ def part_1(lines):
 
 
 def determine_choice(opponent_choice, instruction):
+  # Lose cycle:
   # ROCK -> SCISSORS -> PAPER
   # X lose: offset 1
   # Y tie: offset 0
   # Z win: offset 2
   instruction_offset = { 'X': 1, 'Y': 0, 'Z': 2 }
-  choices = [ ROCK, PAPER, SCISSORS ]
+  choices = [ ROCK, SCISSORS, PAPER ]
 
   index = choices.index(opponent_choice)
   my_choice_index = (index + instruction_offset[instruction]) % len(choices)
@@ -77,6 +78,7 @@ def determine_choice(opponent_choice, instruction):
 def apply_strategy(line):
   choice_code, instruction = line.split()
   opponent_choice = decode(choice_code)
+  print("opponent", opponent_choice, " me", determine_choice(opponent_choice, instruction))
   return score_round( opponent_choice, determine_choice(opponent_choice, instruction))
 
 def part_2(lines):
@@ -93,6 +95,9 @@ def main():
   part_1(lines)
   part_2(lines)
 
+print(apply_strategy("B X"))
+
 if __name__ == "__main__":
+  pass
   main()
 
