@@ -56,14 +56,42 @@ def points_for_choice(choice):
 def score_round(opponent_choice, my_choice):
   return score_game(opponent_choice, my_choice) + points_for_choice(my_choice)
 
+def part_1(lines):
+  rounds = map(parse_choices, lines)
+  total = sum([ score_round(*choices) for choices in rounds ])
+  print(f"Total {total}")
+
+
+def determine_choice(opponent_choice, instruction):
+  # ROCK -> SCISSORS -> PAPER
+  # X lose: offset 1
+  # Y tie: offset 0
+  # Z win: offset 2
+  instruction_offset = { 'X': 1, 'Y': 0, 'Z': 2 }
+  choices = [ ROCK, PAPER, SCISSORS ]
+
+  index = choices.index(opponent_choice)
+  my_choice_index = (index + instruction_offset[instruction]) % len(choices)
+  return choices[my_choice_index]
+
+def apply_strategy(line):
+  choice_code, instruction = line.split()
+  opponent_choice = decode(choice_code)
+  return score_round( opponent_choice, determine_choice(opponent_choice, instruction))
+
+def part_2(lines):
+  total = sum(map(apply_strategy, lines))
+  print(f"Total {total}")
+
+
 def main():
   if len(argv) < 2:
     print("enter filename")
     exit(1)
   filename = argv[1]
-  rounds = map(parse_choices, as_lines(filename))
-  total = sum([ score_round(*choices) for choices in rounds ])
-  print(f"Total {total}")
+  lines = as_lines(filename)
+  part_1(lines)
+  part_2(lines)
 
 if __name__ == "__main__":
   main()
