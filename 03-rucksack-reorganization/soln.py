@@ -1,5 +1,5 @@
 from sys import argv
-
+import itertools
 
 # compute the letter that is in both the first half and second half of the string
 def shared_letter(line):
@@ -12,16 +12,20 @@ def shared_letter(line):
       return c
   print("issue, not found", line)
 
+def priority(letter):
+  ordinal = ord(letter)
+  if ordinal >= ord('a'):
+    return ordinal - ord('a') + 1
+  return ordinal - ord('A') + 27
+
 def part1(lines):
 
-  print(shared_letter(lines[0]))
-  pass
-
+  total = sum([ priority(shared_letter(line)) for line in lines ])
+  print(f"total {total}")
 
 def lines(filename):
   with open(filename) as f:
     return f.readlines()
-
 
 def main():
   filename = argv[1]
