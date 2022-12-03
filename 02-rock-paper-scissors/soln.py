@@ -78,7 +78,7 @@ def determine_choice(opponent_choice, instruction):
 def apply_strategy(line):
   choice_code, instruction = line.split()
   opponent_choice = decode(choice_code)
-  print("opponent", opponent_choice, " me", determine_choice(opponent_choice, instruction))
+  # print("opponent", opponent_choice, " me", determine_choice(opponent_choice, instruction))
   return score_round( opponent_choice, determine_choice(opponent_choice, instruction))
 
 def part_2(lines):
@@ -95,9 +95,9 @@ def main():
   part_1(lines)
   part_2(lines)
 
-print(apply_strategy("B X"))
+# print(apply_strategy("B X"))
 
 if __name__ == "__main__":
-  pass
+  # pass
   main()
 
