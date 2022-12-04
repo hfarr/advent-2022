@@ -54,9 +54,6 @@ def parse_range(string):
   return f(string)
   # okay it's getting silly but I like it
 
-  # print(list(map(delimit("-"), delimit(",")(string))))
-  # return tuple(map(lambda x: Range.from_str_list(x), map(delimit("-"), delimit(",")(string))))
-
 def part_1(assignment_pairs: List[Tuple[Range, Range]]):
 
   contained_ranges_among_pairs = 0
