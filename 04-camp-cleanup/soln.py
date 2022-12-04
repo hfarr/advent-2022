@@ -23,9 +23,14 @@ def curry(f):
 def delimit(delimiter):
   return curry(flip(str.split))(delimiter)
 
+def isnot(predicate):
+  return lambda x: not predicate(x)
+
+# inclusive bound range of integers
 class Range():
   __slots__ = ["lb", "rb"]
   def __init__(self, left_bound, right_bound):
+    # invariant: self.lb <= self.rb
     self.lb = left_bound
     self.rb = right_bound
 
@@ -42,6 +47,16 @@ class Range():
   
   def contains(self,other: 'Range'):
     return all(map( lambda x: x in range(self.lb, self.rb + 1), (other.lb, other.rb)))
+
+  def overlaps(self, other: 'Range'):
+    return other.lb in self or other.rb in self or self.lb in other or self.rb in other
+
+  def __contains__(self, elem):
+    return elem in range(self.lb, self.rb + 1)
+
+def print_range_pairs(tups):
+  for tup in tups:
+    print(tup)
 
 def parse_range(string):
   # would need applicatives to encode the 'flatten' behavior I want, here we have to flatten manually.
@@ -65,6 +80,17 @@ def part_1(assignment_pairs: List[Tuple[Range, Range]]):
   print(f"Fully container partners {contained_ranges_among_pairs}")
   pass
 
+def part_2(assignment_pairs: List[Tuple[Range, Range]]):
+  def overlaps(tup: Tuple[Range,Range]):
+    r1, r2 = tup
+    return r1.overlaps(r2)
+  num_overlapping = len(list(filter(overlaps, assignment_pairs)))
+  non_overlapping = list(filter(isnot(overlaps), assignment_pairs))
+  print(f"Not overlapping {len(non_overlapping)}")
+  # print_range_pairs(non_overlapping)
+  print(f"Overlapping {num_overlapping}")
+
+
 # now that we have a couple puzzles using this, a library is starting to make sense!
 def lines(filename):
   with open(filename) as f:
@@ -73,6 +99,8 @@ def lines(filename):
 def main():
   scenario = lines(argv[1])
   part_1(list(map(parse_range, scenario)))
+  part_2(list(map(parse_range, scenario)))
+
   
 if __name__ == "__main__":
 
