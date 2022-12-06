@@ -58,8 +58,7 @@ def tokenize(lines: List[str]):
       offset += 1
     else: # number. the BLANK/GAP machinery would work to consume the last line but we don't want None tokens
       # actually we are done
-      lines.pop()
-      lines.pop()
+      lines.pop(0)
       return tokens, lines 
       tokens.append(current[offset])
       offset += 4 # last line so we are just chewing through numbers
@@ -99,6 +98,7 @@ def main():
   toks, rest = tokenize(lines(argv[1]))
   crate_stacks = parse_crates(toks)
   print(crate_stacks)
+  print(rest)
   pass
 
 if __name__ == "__main__":
