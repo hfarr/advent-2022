@@ -94,14 +94,19 @@ def execute(crates: List[List[str]], instructions: List[Instruction]):
   for op in instructions:
     count += 1
     # print("instruction", count)
-    print(crates)
-    print(count,instructions[count-1])
+    # print(crates)
+    # print(count,instructions[count-1])
     for _ in range(op.amount):
       try:
         crate = crates[op.source].pop()
         crates[op.dest].append(crate)
       except Exception as e:
         print("oop", instructions[count-1])
+
+
+# Display (queries on crates)
+def top_crates(crates: List[List[str]]):
+  return [ stack[-1] for stack in crates ]
 
 def part_1(scenario):
   pass
@@ -116,9 +121,11 @@ def main():
   crate_stacks = parse_crates(toks)
   instructions = parse_instructions(rest)
   
-  print(crate_stacks)
+  # print(crate_stacks)
   execute(crate_stacks, instructions)
-  print()
+  # print(crate_stacks)
+  result = top_crates(crate_stacks)
+  print("Part1", ''.join(result))
   # print(crate_stacks)
   # print(rest)
   # print(list(instructions))
