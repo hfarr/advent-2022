@@ -81,10 +81,26 @@ def parse_crates(tokens):
   # convert tuples to lists
   return list(map(compose(list, curry(filter)(lambda x: x)), zip(*rows)))
 
-
-  
 def parse_instruction(line: str):
-  return Instruction(*map(int, instruction_matcher.match(line).groups()))
+  return Instruction(*map(compose(lambda x: x - 1, int), instruction_matcher.match(line).groups()))
+
+def parse_instructions(lines):
+  return list(map(parse_instruction, lines))
+
+# mutates creates
+def execute(crates: List[List[str]], instructions: List[Instruction]):
+  count = 0
+  for op in instructions:
+    count += 1
+    # print("instruction", count)
+    print(crates)
+    print(count,instructions[count-1])
+    for _ in range(op.amount):
+      try:
+        crate = crates[op.source].pop()
+        crates[op.dest].append(crate)
+      except Exception as e:
+        print("oop", instructions[count-1])
 
 def part_1(scenario):
   pass
@@ -97,8 +113,14 @@ def lines(filename):
 def main():
   toks, rest = tokenize(lines(argv[1]))
   crate_stacks = parse_crates(toks)
+  instructions = parse_instructions(rest)
+  
   print(crate_stacks)
-  print(rest)
+  execute(crate_stacks, instructions)
+  print()
+  # print(crate_stacks)
+  # print(rest)
+  # print(list(instructions))
   pass
 
 if __name__ == "__main__":
