@@ -76,10 +76,10 @@ def parse_crates(tokens):
       current_row = []
       continue
     current_row.append(tok)
-  for row in rows:
-    print(len(row))
-  print(rows)
   
+  # convert rows -> columns (transpose via zip)
+  # remove the "None"s
+  # convert tuples to lists
   return list(map(compose(list, curry(filter)(lambda x: x)), zip(*rows)))
 
 
@@ -97,10 +97,7 @@ def lines(filename):
 
 def main():
   toks, rest = tokenize(lines(argv[1]))
-  print(toks)
-  print()
   crate_stacks = parse_crates(toks)
-  print()
   print(crate_stacks)
   pass
 
