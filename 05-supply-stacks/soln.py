@@ -82,7 +82,10 @@ def parse_crates(tokens):
   return list(map(compose(list, curry(filter)(lambda x: x)), zip(*rows)))
 
 def parse_instruction(line: str):
-  return Instruction(*map(int, instruction_matcher.match(line).groups()))
+  amt, src, dst = tuple(map(int, instruction_matcher.match(line).groups()))
+  return Instruction(amt, src - 1, dst - 1)
+
+
 
 def parse_instructions(lines):
   return list(map(parse_instruction, lines))
