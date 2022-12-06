@@ -85,8 +85,6 @@ def parse_instruction(line: str):
   amt, src, dst = tuple(map(int, instruction_matcher.match(line).groups()))
   return Instruction(amt, src - 1, dst - 1)
 
-
-
 def parse_instructions(lines):
   return list(map(parse_instruction, lines))
 
