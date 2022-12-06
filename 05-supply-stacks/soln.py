@@ -5,6 +5,8 @@ import re
 import itertools
 import functools
 
+import copy
+
 def compose(*f):
   def binary_compose(f,g):
     def of(x):
@@ -89,7 +91,7 @@ def parse_instructions(lines):
   return list(map(parse_instruction, lines))
 
 # mutates creates
-def execute(crates: List[List[str]], instructions: List[Instruction]):
+def part1_execute(crates: List[List[str]], instructions: List[Instruction]):
   count = 0
   for op in instructions:
     count += 1
@@ -103,13 +105,15 @@ def execute(crates: List[List[str]], instructions: List[Instruction]):
       except Exception as e:
         print("oop", instructions[count-1])
 
+def part2_execute(crates: List[List[str]], instructions: List[Instruction]):
+  for op in instructions:
+    crates_in_motion = crates[op.source][-op.amount:]
+    crates[op.source] = crates[op.source][:-op.amount]
+    crates[op.dest].extend(crates_in_motion)
 
 # Display (queries on crates)
 def top_crates(crates: List[List[str]]):
   return [ stack[-1] for stack in crates ]
-
-def part_1(scenario):
-  pass
 
 def lines(filename):
   with open(filename) as f:
@@ -122,14 +126,14 @@ def main():
   instructions = parse_instructions(rest)
   
   # print(crate_stacks)
-  execute(crate_stacks, instructions)
+  part1_values = copy.deepcopy(crate_stacks)
+  part1_execute(part1_values, instructions)
   # print(crate_stacks)
-  result = top_crates(crate_stacks)
-  print("Part1", ''.join(result))
-  # print(crate_stacks)
-  # print(rest)
-  # print(list(instructions))
-  pass
+  part2_values = copy.deepcopy(crate_stacks)
+  part2_execute(part2_values, instructions)
+
+  print("Part1", ''.join(top_crates(part1_values)))
+  print("Part2", ''.join(top_crates(part2_values)))
 
 if __name__ == "__main__":
   main()
