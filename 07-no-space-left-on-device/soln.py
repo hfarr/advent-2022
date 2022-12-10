@@ -140,22 +140,16 @@ def part_1(structure: DirFile):
 def part_2(structure: DirFile):
   dirs = collect_dirs(structure)
   dirs.sort(key=lambda dir: dir.size(), reverse=True)
-  print(dirs)
   TOTAL_SPACE = 70_000_000
   # USED_SPACE = TOTAL_SPACE - structure.size() # this actually computes FREE SPACE. free_space + deleted would be our answer.
   USED_SPACE = structure.size()
   FREE_SPACE = TOTAL_SPACE - USED_SPACE
   SPACE_NEEDS = 30_000_000
   can_free = lambda dir: FREE_SPACE + dir.size() >= SPACE_NEEDS
-  # def can_free(dir):
-  #   freed_space = TOTAL_SPACE - (USED_SPACE - dir.size())
-  #   print(TOTAL_SPACE, USED_SPACE, dir.size(), freed_space, SPACE_NEEDS)
-  #   return freed_space >= SPACE_NEEDS
-
-  print('expect fail')
-  print("test", can_free(dirs[-1]))
 
   # can do a bsearch lmao (that is, increase index exponentially rather than linearly)
+  # it's kind of a bsearch. I guess technically a bsearch would be continually taking midpoints,
+  # but it's a similar idea. can probably compare the runtimes.
   champion = None # smallest dir we can delete
   idx = 0
   increment = 1
@@ -172,12 +166,9 @@ def part_2(structure: DirFile):
     else:
       increment //= 2
   
-  print(FREE_SPACE)
-  print(FREE_SPACE + champion.size())
-  print(FREE_SPACE + dirs[idx + 1].size())
-  print(champion, idx)
-  print(dirs[idx])
-  print(dirs[idx + 1])
+  # print(FREE_SPACE + champion.size())
+  # print(FREE_SPACE + dirs[idx + 1].size())
+  return champion.size()
 
 def main():
   lines = open(argv[1]).readlines()
