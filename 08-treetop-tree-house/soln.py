@@ -88,8 +88,7 @@ def compute_tallest_from(grid: List[List[int]]):
   return grid_dict, tallest_from
   
 
-def count_visible(grid: List[List[int]]):
-  grid_dict, tallest_from = compute_tallest_from(grid)
+def print_tallest_froms(grid, tallest_from):
 
   for idx in TOP, BOTTOM, LEFT, RIGHT:
 
@@ -101,6 +100,27 @@ def count_visible(grid: List[List[int]]):
         print(tallest_from[(i,j)][idx], end='')
       print()
     print()
+
+def count_visible(grid: List[List[int]]):
+  grid_dict, tallest_from = compute_tallest_from(grid)
+
+  print_tallest_froms(grid, tallest_from)
+
+  visible = defaultdict(lambda: False)
+
+  dirs = TOP, BOTTOM, LEFT, RIGHT
+
+  def is_visible(coord):
+    nonlocal dirs
+    # A tree is visible if it is taller than the tallest tree looking out to all directions
+    return all( [ grid_dict[coord] > tallest_from[coord][dir] for dir in dirs ] )
+
+  for coord in grid_dict:
+    visible[coord] = 'x' if is_visible(coord) else '.'
+
+  print_grid_dict(len(grid), visible)
+    
+
 
 def parse_input(lines):
   return [ [ int(c) for c in line.strip() ] for line in lines ]
