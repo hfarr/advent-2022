@@ -48,7 +48,18 @@ class Dir(DirFile):
 
   # pre order traversal
   def traverse(self, base, rec, depth = 0):
-    return [ rec(self, depth) ] + [f.traverse(base, rec, depth + 1) for f in self.files.values() ]
+    results = [ f.traverse(base, rec, depth + 1) for f in self.files.values() ]
+    concatted = []
+    for r in results:
+      concatted.extend(r)
+
+    # there's probably an iterable way to flatmap
+    # return [ rec(self, depth) ] + [ f.traverse(base, rec, depth + 1) for f in self.files.values() ]
+
+    return [ rec(self, depth) ] + concatted
+
+  def __str__(self):
+    return repr(self)
 
   def __repr__(self) -> str:
     def rec(f: DirFile, depth):
@@ -57,10 +68,7 @@ class Dir(DirFile):
     def base(f: DirFile, depth):
       return f"{'  '*depth}{str(f)}"
 
-    # contents = [ str(f) for f in self.files.values() ]
-    # return "\n  ".join([top, *contents])
     contents = self.traverse(base, rec)
-    print(contents)
     return "\n".join(contents)
   
 CMD_START = "$"
@@ -104,7 +112,8 @@ def main():
   lines = open(argv[1]).readlines()
   structure = parse_fs_tree(lines)
 
-  print(str(structure))
+  print(structure)
+  # print(str(structure))
 
 if __name__ == "__main__":
   main()
