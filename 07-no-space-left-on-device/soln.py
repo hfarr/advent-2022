@@ -4,7 +4,6 @@ import re
 import itertools
 import functools
 
-
 class DirFile:
 
   def __init__(self, name, parent, size):
@@ -65,8 +64,11 @@ class Dir(DirFile):
 
   def __str__(self):
     return repr(self)
-
+  
   def __repr__(self) -> str:
+    return f"{self.name} (dir, {self.size()})"
+
+  def pretty_print(self) -> str:
     # def rec(f: DirFile, depth):
     #   return f"{'  '*depth}- {f.name} (dir)"
     def rec(f: DirFile, depth):
@@ -115,22 +117,34 @@ def parse_fs_tree(lines):
   
   return root
 
-def dir_sizes(structure: DirFile):
-  dirs: Dict[str, Dir] = dict()
-  base = lambda _: 0
-  def rec(f: Dir):
-    dirs[f.name] = f.size()
+# small dir sums
+def part_1(structure: DirFile):
+  # dirs: Dict[str, Dir] = dict()
+  dirs: List[Dir] = list()
+  base = lambda _, __: 0
+  def rec(f: Dir, _):
+    dirs.append(f)
     return 0
   # executed for side effect
   structure.traverse(base, rec)
+
+  # print(dirs)
+  # small_dirs = filter( lambda d: d.size() <= 100000, dirs)
+  result = sum([ d.size() for d in dirs if d.size() <= 100000])
+  return result
+  
 
 
 def main():
   lines = open(argv[1]).readlines()
   structure = parse_fs_tree(lines)
 
-  print(structure)
+  print(structure.pretty_print())
+  print()
   # print(str(structure))
+  print("Sum of sizes of dirs less than 100000")
+  print(part_1(structure))
+
 
 if __name__ == "__main__":
   main()
