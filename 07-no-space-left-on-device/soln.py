@@ -27,6 +27,7 @@ class DirFile:
 class Dir(DirFile):
   def __init__(self, name, parent):
     super().__init__(name, parent, 0)
+    self.__memosize = None
     self.name = name
     self.files: Dict[str, DirFile] = dict()
 
@@ -41,7 +42,11 @@ class Dir(DirFile):
       file.parent = self
 
   def size(self):
-    return sum([ f.size() for f in self.files ])
+    
+    # anticipates the directory doesn't change after creation
+    if not self.__memosize:
+      self.__memosize = sum([ f.size() for f in self.files.values() ])
+    return self.__memosize
 
   def __contains__(self, element: DirFile):
     return element.name in self.files
@@ -62,8 +67,10 @@ class Dir(DirFile):
     return repr(self)
 
   def __repr__(self) -> str:
+    # def rec(f: DirFile, depth):
+    #   return f"{'  '*depth}- {f.name} (dir)"
     def rec(f: DirFile, depth):
-      return f"{'  '*depth}- {f.name} (dir)"
+      return f"{'  '*depth}- {f.name} (dir, size={f.size()})"
 
     def base(f: DirFile, depth):
       return f"{'  '*depth}{str(f)}"
@@ -104,9 +111,19 @@ def parse_fs_tree(lines):
       if first == "dir":  # directory
         current_dir.add_file(Dir(second, current_dir))  # redundantly setting current dir here and in add_file
       else: # file
-        current_dir.add_file(DirFile(second, current_dir, first))
+        current_dir.add_file(DirFile(second, current_dir, int(first)))
   
   return root
+
+def dir_sizes(structure: DirFile):
+  dirs: Dict[str, Dir] = dict()
+  base = lambda _: 0
+  def rec(f: Dir):
+    dirs[f.name] = f.size()
+    return 0
+  # executed for side effect
+  structure.traverse(base, rec)
+
 
 def main():
   lines = open(argv[1]).readlines()
