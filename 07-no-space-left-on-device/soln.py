@@ -3,6 +3,7 @@ from typing import Tuple, List, Union, Dict
 import re
 import itertools
 import functools
+import math
 
 class DirFile:
 
@@ -117,9 +118,7 @@ def parse_fs_tree(lines):
   
   return root
 
-# small dir sums
-def part_1(structure: DirFile):
-  # dirs: Dict[str, Dir] = dict()
+def collect_dirs(structure: DirFile):
   dirs: List[Dir] = list()
   base = lambda _, __: 0
   def rec(f: Dir, _):
@@ -127,13 +126,58 @@ def part_1(structure: DirFile):
     return 0
   # executed for side effect
   structure.traverse(base, rec)
+  return dirs
+
+# small dir sums
+def part_1(structure: DirFile):
+  dirs = collect_dirs(structure)
 
   # print(dirs)
   # small_dirs = filter( lambda d: d.size() <= 100000, dirs)
   result = sum([ d.size() for d in dirs if d.size() <= 100000])
   return result
   
+def part_2(structure: DirFile):
+  dirs = collect_dirs(structure)
+  dirs.sort(key=lambda dir: dir.size(), reverse=True)
+  print(dirs)
+  TOTAL_SPACE = 70_000_000
+  # USED_SPACE = TOTAL_SPACE - structure.size() # this actually computes FREE SPACE. free_space + deleted would be our answer.
+  USED_SPACE = structure.size()
+  FREE_SPACE = TOTAL_SPACE - USED_SPACE
+  SPACE_NEEDS = 30_000_000
+  can_free = lambda dir: FREE_SPACE + dir.size() >= SPACE_NEEDS
+  # def can_free(dir):
+  #   freed_space = TOTAL_SPACE - (USED_SPACE - dir.size())
+  #   print(TOTAL_SPACE, USED_SPACE, dir.size(), freed_space, SPACE_NEEDS)
+  #   return freed_space >= SPACE_NEEDS
 
+  print('expect fail')
+  print("test", can_free(dirs[-1]))
+
+  # can do a bsearch lmao
+  champion = math.inf # size of smallest file we can delete
+  idx = 0
+  increment = 1
+  while increment > 0 and idx < len(dirs):
+    
+    print(idx, increment)
+    while idx + increment >= len(dirs):
+      increment //= 2
+      # print(increment, len(dirs))
+    if can_free(dirs[idx]): # because we sorted,  this file will always be at least as good as a choice as the champion, so we replace it
+      champion = dirs[idx].size()
+      idx += increment
+      increment *= 2
+    else: # increment is too far, narrow our scope
+      increment //= 2
+  
+  print(FREE_SPACE, champion)
+  print(FREE_SPACE + champion)
+  print(FREE_SPACE + dirs[idx // 2 + 1].size())
+  print(champion, idx)
+  print(dirs[idx // 2])
+  print(dirs[idx // 2+ 1])
 
 def main():
   lines = open(argv[1]).readlines()
@@ -144,6 +188,10 @@ def main():
   # print(str(structure))
   print("Sum of sizes of dirs less than 100000")
   print(part_1(structure))
+  print()
+  print("(size of) Best directory to delete")
+  print(part_2(structure))
+  print()
 
 
 if __name__ == "__main__":
