@@ -155,29 +155,29 @@ def part_2(structure: DirFile):
   print('expect fail')
   print("test", can_free(dirs[-1]))
 
-  # can do a bsearch lmao
-  champion = math.inf # size of smallest file we can delete
+  # can do a bsearch lmao (that is, increase index exponentially rather than linearly)
+  champion = None # smallest dir we can delete
   idx = 0
   increment = 1
+  # invariant: idx always points to a valid dir, one that satisfies the predicate, supposing at least one satisfies the predicate
   while increment > 0 and idx < len(dirs):
-    
-    print(idx, increment)
     while idx + increment >= len(dirs):
       increment //= 2
-      # print(increment, len(dirs))
-    if can_free(dirs[idx]): # because we sorted,  this file will always be at least as good as a choice as the champion, so we replace it
-      champion = dirs[idx].size()
+
+    if can_free(dirs[idx + increment]):
+      # because we sorted,  this file will always be at least as good as a choice as the champion, so we replace it
+      champion = dirs[idx + increment] 
       idx += increment
       increment *= 2
-    else: # increment is too far, narrow our scope
+    else:
       increment //= 2
   
-  print(FREE_SPACE, champion)
-  print(FREE_SPACE + champion)
-  print(FREE_SPACE + dirs[idx // 2 + 1].size())
+  print(FREE_SPACE)
+  print(FREE_SPACE + champion.size())
+  print(FREE_SPACE + dirs[idx + 1].size())
   print(champion, idx)
-  print(dirs[idx // 2])
-  print(dirs[idx // 2+ 1])
+  print(dirs[idx])
+  print(dirs[idx + 1])
 
 def main():
   lines = open(argv[1]).readlines()
