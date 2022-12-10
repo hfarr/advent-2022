@@ -50,8 +50,8 @@ def compute_tallest_from(grid: List[List[int]]):
   # print_grid_dict(len(grid), grid_dict)
 
   #                         row         column
-  hoz_opp = lambda coord: (coord[0], len(grid) - coord[1])
-  ver_opp = lambda coord: (len(grid) - coord[0], coord[1])
+  hoz_opp = lambda coord: (coord[0], len(grid) - 1 - coord[1])
+  ver_opp = lambda coord: (len(grid) - 1 - coord[0], coord[1])
 
   top =     TOP,    lambda coord: (coord[0] - 1, coord[1])
   bottom =  BOTTOM, lambda coord: (coord[0] + 1, coord[1])
@@ -79,10 +79,10 @@ def compute_tallest_from(grid: List[List[int]]):
         (ver_opp(hoz_opp(coord)), right),
       ]
 
-      print(coord)
+      # print(coord)
       for coordinate, (idx, offset) in comp:
         neighbor = offset(coordinate)
-        print("  ", coordinate, tallest_from[neighbor], grid_dict[neighbor])
+        # print("  ", coordinate, tallest_from[neighbor], grid_dict[neighbor])
         tallest_from[coordinate][idx] = max( tallest_from[neighbor][idx], grid_dict[neighbor] )
   
   return grid_dict, tallest_from
