@@ -31,6 +31,19 @@ def print_grid_dict(length, grid):
         print(grid[(i,j)],end="")
     print()
 
+def print_tallest_froms(grid, tallest_from):
+
+  for idx in TOP, BOTTOM, LEFT, RIGHT:
+
+    for i in range(len(grid)):
+      for j in range(len(grid)):
+        if tallest_from[(i,j)][idx] == -1:
+          print("-",end='')
+          continue
+        print(tallest_from[(i,j)][idx], end='')
+      print()
+    print()
+
 # slightly better than brute I think
 def compute_tallest_from(grid: List[List[int]]):
 
@@ -86,20 +99,7 @@ def compute_tallest_from(grid: List[List[int]]):
         tallest_from[coordinate][idx] = max( tallest_from[neighbor][idx], grid_dict[neighbor] )
   
   return grid_dict, tallest_from
-  
 
-def print_tallest_froms(grid, tallest_from):
-
-  for idx in TOP, BOTTOM, LEFT, RIGHT:
-
-    for i in range(len(grid)):
-      for j in range(len(grid)):
-        if tallest_from[(i,j)][idx] == -1:
-          print("-",end='')
-          continue
-        print(tallest_from[(i,j)][idx], end='')
-      print()
-    print()
 
 def count_visible(grid: List[List[int]]):
   grid_dict, tallest_from = compute_tallest_from(grid)
@@ -133,7 +133,9 @@ def main():
   lines = open(argv[1]).readlines()
   grid = parse_input(lines)
   visible_trees = count_visible(grid)
+  print("Part 1: visible_trees")
   print(visible_trees)
+  print()
   pass
 
 if __name__ == "__main__":
