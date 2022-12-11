@@ -110,14 +110,18 @@ def compute_tallest_from(grid: List[List[int]]):
           # this tree is on the edge and the direction we're looking in has no trees, so continue on
           continue
 
-        # if grid_dict[coordinate] <= grid_dict[neighbor]:
-        #   sight_block_from[coordinate][dir] = 1
-        # else: # greater than
-        #   distance = 1
-        #   cur_blocking = offset(coordinate, distance)
         distance = 1
         cur_blocking = offset(coordinate)
 
+        # for our scenario, the tallest tree is never more than 9, which is an upper bound on the number
+        # of iterations this can go through.
+        # if we extend the problem to trees of arbitrary positive heights the asymptotics go to
+        # O(n*m * min(max(n,m), tallest_tree_size))
+        # at least, pretty sure part 1 on its own is n*m. a high constant factor but we do it one one pass
+        # through the full array.
+        # part 2 is still O(n*m) if we consider the bounded max height of trees.
+        # though maybe we shouldn't consider that bound as making this loop constant, big-o algorithm
+        # analysis has some red herrings
         while grid_dict[coordinate] > grid_dict[cur_blocking]:
           candidate_distance = sight_block_from[cur_blocking][dir]
 
