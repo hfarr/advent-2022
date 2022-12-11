@@ -135,12 +135,24 @@ def compute_tallest_from(grid: List[List[int]]):
         # print("  ", sight_block_from[coordinate], distance)
         sight_block_from[coordinate][dir] = distance
   
-  return grid_dict, tallest_from
+  return grid_dict, tallest_from, sight_block_from
 
+def get_best_scenic(sight_block_from):
+
+  # scenic_scores = defaultdict(lambda: 0)
+
+  best_scenic = 0
+  for view_distances in sight_block_from.values():
+    product = math.prod(view_distances)
+    if product > best_scenic:
+      best_scenic= product
+  return best_scenic
 
 def count_visible(grid: List[List[int]]):
-  grid_dict, tallest_from = compute_tallest_from(grid)
+  grid_dict, tallest_from, sight_block_from = compute_tallest_from(grid)
 
+  # print_tallest_froms(grid, sight_block_from)
+  # return 0
   print_tallest_froms(grid, tallest_from)
 
   visible = defaultdict(lambda: False)
@@ -160,7 +172,11 @@ def count_visible(grid: List[List[int]]):
 
   print_grid_dict(len(grid), pretty_visible)
 
-  return sum(filter(lambda x: x, visible.values()))
+  # could, and maybe should, split these into separate functions
+  num_visible = sum(filter(lambda x: x, visible.values()))
+  best_scenic = get_best_scenic(sight_block_from)
+
+  return num_visible, best_scenic
 
 
 def parse_input(lines):
@@ -169,11 +185,15 @@ def parse_input(lines):
 def main():
   lines = open(argv[1]).readlines()
   grid = parse_input(lines)
-  visible_trees = count_visible(grid)
+  visible_trees, best_scenic_score = count_visible(grid)
+  
   print("Part 1: visible_trees")
   print(visible_trees)
   print()
-  pass
+
+  print("Part 2: scenic score")
+  print(best_scenic_score)
+  print()
 
 if __name__ == "__main__":
   main()
