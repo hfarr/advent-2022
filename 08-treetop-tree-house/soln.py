@@ -44,6 +44,9 @@ def print_tallest_froms(grid, tallest_from):
       print()
     print()
 
+def abs(number):
+  return number if number >= 0 else -number
+
 # slightly better than brute I think
 def compute_tallest_from(grid: List[List[int]]):
 
@@ -55,6 +58,8 @@ def compute_tallest_from(grid: List[List[int]]):
       grid_dict[(i,j)] = grid[i][j]
 
   tallest_from = defaultdict(lambda: [-1]*4)
+  # sight_block_from = defaultdict(lambda: [None]*4)  # maps a coord to coords, in all directions, of tree blocking LOS
+  sight_block_from = defaultdict(lambda: [0]*4)  # maps a coord to distance of the tree blocking LOS in that direction
   # grid is a square
   LAST_IDX = len(grid) - 1
 
@@ -66,10 +71,13 @@ def compute_tallest_from(grid: List[List[int]]):
   hoz_opp = lambda coord: (coord[0], len(grid) - 1 - coord[1])
   ver_opp = lambda coord: (len(grid) - 1 - coord[0], coord[1])
 
-  top =     TOP,    lambda coord: (coord[0] - 1, coord[1])
-  bottom =  BOTTOM, lambda coord: (coord[0] + 1, coord[1])
-  left =    LEFT,   lambda coord: (coord[0], coord[1] - 1)
-  right =   RIGHT,  lambda coord: (coord[0], coord[1] + 1)
+  #         direction, offset func
+  top =     TOP,    lambda coord, amt=1: (coord[0] - amt, coord[1]), 0
+  bottom =  BOTTOM, lambda coord, amt=1: (coord[0] + amt, coord[1]), 0
+  left =    LEFT,   lambda coord, amt=1: (coord[0], coord[1] - amt), 1
+  right =   RIGHT,  lambda coord, amt=1: (coord[0], coord[1] + amt), 1
+
+  # def find_blocking
 
   for row_idx in range(0, len(grid)):
     for col_idx in range(0, len(grid)):
@@ -93,10 +101,39 @@ def compute_tallest_from(grid: List[List[int]]):
       ]
 
       # print(coord)
-      for coordinate, (idx, offset) in comp:
+      for coordinate, (dir, offset, coord_idx)  in comp:
         neighbor = offset(coordinate)
         # print("  ", coordinate, tallest_from[neighbor], grid_dict[neighbor])
-        tallest_from[coordinate][idx] = max( tallest_from[neighbor][idx], grid_dict[neighbor] )
+        tallest_from[coordinate][dir] = max( tallest_from[neighbor][dir], grid_dict[neighbor] )
+
+        if neighbor[coord_idx] in (-1,len(grid)): 
+          # this tree is on the edge and the direction we're looking in has no trees, so continue on
+          continue
+
+        # if grid_dict[coordinate] <= grid_dict[neighbor]:
+        #   sight_block_from[coordinate][dir] = 1
+        # else: # greater than
+        #   distance = 1
+        #   cur_blocking = offset(coordinate, distance)
+        distance = 1
+        cur_blocking = offset(coordinate)
+
+        while grid_dict[coordinate] > grid_dict[cur_blocking]:
+          candidate_distance = sight_block_from[cur_blocking][dir]
+
+          if candidate_distance == 0:
+            # the candidate is on the edge and shorter than us, no more trees to review.
+            sight_block_from[coordinate][dir] = distance
+            break
+
+          # essentially chaining/accumulating distances till the end
+          distance += candidate_distance
+          cur_blocking = offset(cur_blocking, candidate_distance)
+          # could also be offset(coordinate, distance), but the above makes the "chaining" explicit
+
+        
+        # print("  ", sight_block_from[coordinate], distance)
+        sight_block_from[coordinate][dir] = distance
   
   return grid_dict, tallest_from
 
