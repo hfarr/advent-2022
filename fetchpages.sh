@@ -1,5 +1,5 @@
 
-SESSION="Cookie: session=..."
+SESSION="Cookie: session=$(cat SESSION)"
 
 fetchone() {
 
