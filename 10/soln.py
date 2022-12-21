@@ -28,7 +28,7 @@ def compute(instructions: List[Tuple[str, int]]):
     cycle += 1
 
   # modeling multi-cycle clock instructions... where we take a measurement everytime the cycle increments.
-  # well, create a hook on cycle increment
+  # well, create a hook on cycle increment, as one approach
 
   # we measure at for non-negative integers n, cycles 20 + 40n
   for instr, maybe_val in instructions:
