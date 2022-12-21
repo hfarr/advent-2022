@@ -67,33 +67,19 @@ def accumulate_unique_tail_positions(steps: List[Vec2D]):
 
   count = 0
 
-  print("Head:", head)
-
   for step in steps:
     count += 1
-    # print("Executing step #", count, ",", step)
     head += step
-    print("Head:", head)
     # it's probably fine if this is just an 'if', it should NEVER be more than 2 after all
 
-    breaker = 0
-    BREAK_AT=4
-    while head.distance(tail) > 1 and breaker < BREAK_AT:
-      print(" \"Distance\" from head:", head.distance(tail))
-      print("  tail needs to catch up. Head:", head, "tail:", tail, end="" )
-      breaker += 1
+    while head.distance(tail) > 1:
 
-      incr = (head - tail).taxi_normal()
+      # Step "tail" towards "head" one 'unit' at a time
+      # unit being a step in a cardinal or diagonal direction
+      diff = (head - tail)
+      tail += diff.taxi_normal()  # The metric/norm is not taxicab, I'm pretty sure. what I consider one unit diagonally taxi would have as 2, but I can't think of a name at the moment
 
-      # tail += (head - tail).taxi_normal()
-      print(" +", incr, "->", tail)
-      print("\t", head - tail)
-      tail += incr
       unique_positions.add(tail)
-
-    if breaker == BREAK_AT:
-      print("infinite loop detected (don't tell alan turing)")
-      break
 
   return len(unique_positions)
 
@@ -115,7 +101,7 @@ def main():
   print(len(steps), "steps to execute")
 
   answer_1 = part_1(steps)
-  print("Part 1", answer_1)
+  print("Part 1", answer_1, "unique positions")
 
 if __name__ == "__main__":
   main()
