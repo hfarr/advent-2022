@@ -33,8 +33,8 @@ class Vec2D:
   # here it's just a kind of cheap trick to resolve the "diagonal" steps
   # into a "unit" step
   def taxi_normal(self):
-    newX = 1 if self.x > 0 else 0
-    newY = 1 if self.y > 0 else 0
+    newX = abs(self.x) // self.x if self.x != 0 else 0
+    newY = abs(self.y) // self.y if self.y != 0 else 0
     return Vec2D(newX, newY)
 
   # "taxi distance" again not really correct per "taxi" definition.
