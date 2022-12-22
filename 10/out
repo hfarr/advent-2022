@@ -1,0 +1,242 @@
+noop     Cycle   1 register x has 1
+noop     Cycle   2 register x has 1
+noop     Cycle   3 register x has 1
+addx   5 Cycle   4 register x has 1
+   |     Cycle   5 register x has 1
+addx   1 Cycle   6 register x has 6
+   |     Cycle   7 register x has 6
+addx   4 Cycle   8 register x has 7
+   |     Cycle   9 register x has 7
+addx   1 Cycle  10 register x has 11
+   |     Cycle  11 register x has 11
+noop     Cycle  12 register x has 12
+addx   4 Cycle  13 register x has 12
+   |     Cycle  14 register x has 12
+noop     Cycle  15 register x has 16
+addx   1 Cycle  16 register x has 16
+   |     Cycle  17 register x has 16
+addx   4 Cycle  18 register x has 17
+   |     Cycle  19 register x has 17. Strength 340
+addx   8 Cycle  20 register x has 21
+   |     Cycle  21 register x has 21
+addx  -7 Cycle  22 register x has 29
+   |     Cycle  23 register x has 29
+addx   3 Cycle  24 register x has 22
+   |     Cycle  25 register x has 22
+addx   1 Cycle  26 register x has 25
+   |     Cycle  27 register x has 25
+noop     Cycle  28 register x has 26
+addx   4 Cycle  29 register x has 26
+   |     Cycle  30 register x has 26
+addx   2 Cycle  31 register x has 30
+   |     Cycle  32 register x has 30
+addx   5 Cycle  33 register x has 32
+   |     Cycle  34 register x has 32
+addx  -1 Cycle  35 register x has 37
+   |     Cycle  36 register x has 37
+noop     Cycle  37 register x has 36
+addx -37 Cycle  38 register x has 36
+   |     Cycle  39 register x has 36
+noop     Cycle  40 register x has -1
+noop     Cycle  41 register x has -1
+addx   3 Cycle  42 register x has -1
+   |     Cycle  43 register x has -1
+addx   2 Cycle  44 register x has 2
+   |     Cycle  45 register x has 2
+addx  13 Cycle  46 register x has 4
+   |     Cycle  47 register x has 4
+addx  12 Cycle  48 register x has 17
+   |     Cycle  49 register x has 17
+addx -15 Cycle  50 register x has 29
+   |     Cycle  51 register x has 29
+addx  -2 Cycle  52 register x has 14
+   |     Cycle  53 register x has 14
+addx   2 Cycle  54 register x has 12
+   |     Cycle  55 register x has 12
+addx -11 Cycle  56 register x has 14
+   |     Cycle  57 register x has 14
+addx  18 Cycle  58 register x has 3
+   |     Cycle  59 register x has 3. Strength 180
+addx   2 Cycle  60 register x has 21
+   |     Cycle  61 register x has 21
+addx -15 Cycle  62 register x has 23
+   |     Cycle  63 register x has 23
+addx  16 Cycle  64 register x has 8
+   |     Cycle  65 register x has 8
+addx   5 Cycle  66 register x has 24
+   |     Cycle  67 register x has 24
+addx   2 Cycle  68 register x has 29
+   |     Cycle  69 register x has 29
+addx   5 Cycle  70 register x has 31
+   |     Cycle  71 register x has 31
+noop     Cycle  72 register x has 36
+noop     Cycle  73 register x has 36
+noop     Cycle  74 register x has 36
+addx   3 Cycle  75 register x has 36
+   |     Cycle  76 register x has 36
+addx  -2 Cycle  77 register x has 39
+   |     Cycle  78 register x has 39
+addx -38 Cycle  79 register x has 37
+   |     Cycle  80 register x has 37
+noop     Cycle  81 register x has -1
+addx   3 Cycle  82 register x has -1
+   |     Cycle  83 register x has -1
+addx   4 Cycle  84 register x has 2
+   |     Cycle  85 register x has 2
+noop     Cycle  86 register x has 6
+noop     Cycle  87 register x has 6
+noop     Cycle  88 register x has 6
+noop     Cycle  89 register x has 6
+noop     Cycle  90 register x has 6
+addx   5 Cycle  91 register x has 6
+   |     Cycle  92 register x has 6
+addx   5 Cycle  93 register x has 11
+   |     Cycle  94 register x has 11
+noop     Cycle  95 register x has 16
+noop     Cycle  96 register x has 16
+addx  21 Cycle  97 register x has 16
+   |     Cycle  98 register x has 16
+addx -17 Cycle  99 register x has 37. Strength 3700
+   |     Cycle 100 register x has 37
+addx   6 Cycle 101 register x has 20
+   |     Cycle 102 register x has 20
+noop     Cycle 103 register x has 26
+noop     Cycle 104 register x has 26
+noop     Cycle 105 register x has 26
+noop     Cycle 106 register x has 26
+addx   5 Cycle 107 register x has 26
+   |     Cycle 108 register x has 26
+noop     Cycle 109 register x has 31
+noop     Cycle 110 register x has 31
+noop     Cycle 111 register x has 31
+noop     Cycle 112 register x has 31
+noop     Cycle 113 register x has 31
+addx   3 Cycle 114 register x has 31
+   |     Cycle 115 register x has 31
+addx   5 Cycle 116 register x has 34
+   |     Cycle 117 register x has 34
+addx -38 Cycle 118 register x has 39
+   |     Cycle 119 register x has 39
+noop     Cycle 120 register x has 1
+noop     Cycle 121 register x has 1
+addx   5 Cycle 122 register x has 1
+   |     Cycle 123 register x has 1
+addx  -2 Cycle 124 register x has 6
+   |     Cycle 125 register x has 6
+addx   1 Cycle 126 register x has 4
+   |     Cycle 127 register x has 4
+addx   7 Cycle 128 register x has 5
+   |     Cycle 129 register x has 5
+noop     Cycle 130 register x has 12
+addx  22 Cycle 131 register x has 12
+   |     Cycle 132 register x has 12
+addx -18 Cycle 133 register x has 34
+   |     Cycle 134 register x has 34
+addx -11 Cycle 135 register x has 16
+   |     Cycle 136 register x has 16
+addx  27 Cycle 137 register x has 5
+   |     Cycle 138 register x has 5
+addx -13 Cycle 139 register x has 32. Strength 4480
+   |     Cycle 140 register x has 32
+addx   2 Cycle 141 register x has 19
+   |     Cycle 142 register x has 19
+addx   5 Cycle 143 register x has 21
+   |     Cycle 144 register x has 21
+addx  -8 Cycle 145 register x has 26
+   |     Cycle 146 register x has 26
+addx   9 Cycle 147 register x has 18
+   |     Cycle 148 register x has 18
+addx   2 Cycle 149 register x has 27
+   |     Cycle 150 register x has 27
+noop     Cycle 151 register x has 29
+addx   7 Cycle 152 register x has 29
+   |     Cycle 153 register x has 29
+noop     Cycle 154 register x has 36
+addx   1 Cycle 155 register x has 36
+   |     Cycle 156 register x has 36
+noop     Cycle 157 register x has 37
+addx -38 Cycle 158 register x has 37
+   |     Cycle 159 register x has 37
+noop     Cycle 160 register x has -1
+addx   2 Cycle 161 register x has -1
+   |     Cycle 162 register x has -1
+addx   5 Cycle 163 register x has 1
+   |     Cycle 164 register x has 1
+addx  -3 Cycle 165 register x has 6
+   |     Cycle 166 register x has 6
+noop     Cycle 167 register x has 3
+addx   8 Cycle 168 register x has 3
+   |     Cycle 169 register x has 3
+addx  11 Cycle 170 register x has 11
+   |     Cycle 171 register x has 11
+addx  -6 Cycle 172 register x has 22
+   |     Cycle 173 register x has 22
+noop     Cycle 174 register x has 16
+addx  24 Cycle 175 register x has 16
+   |     Cycle 176 register x has 16
+addx -31 Cycle 177 register x has 40
+   |     Cycle 178 register x has 40
+addx  10 Cycle 179 register x has 9. Strength 1620
+   |     Cycle 180 register x has 9
+addx   2 Cycle 181 register x has 19
+   |     Cycle 182 register x has 19
+addx   5 Cycle 183 register x has 21
+   |     Cycle 184 register x has 21
+addx   3 Cycle 185 register x has 26
+   |     Cycle 186 register x has 26
+noop     Cycle 187 register x has 29
+addx   2 Cycle 188 register x has 29
+   |     Cycle 189 register x has 29
+addx -29 Cycle 190 register x has 31
+   |     Cycle 191 register x has 31
+addx  21 Cycle 192 register x has 2
+   |     Cycle 193 register x has 2
+addx  11 Cycle 194 register x has 23
+   |     Cycle 195 register x has 23
+addx   5 Cycle 196 register x has 34
+   |     Cycle 197 register x has 34
+addx -39 Cycle 198 register x has 39
+   |     Cycle 199 register x has 39
+addx   4 Cycle 200 register x has 0
+   |     Cycle 201 register x has 0
+addx  -2 Cycle 202 register x has 4
+   |     Cycle 203 register x has 4
+addx   2 Cycle 204 register x has 2
+   |     Cycle 205 register x has 2
+addx   7 Cycle 206 register x has 4
+   |     Cycle 207 register x has 4
+noop     Cycle 208 register x has 11
+addx  -1 Cycle 209 register x has 11
+   |     Cycle 210 register x has 11
+addx   2 Cycle 211 register x has 10
+   |     Cycle 212 register x has 10
+noop     Cycle 213 register x has 12
+addx   4 Cycle 214 register x has 12
+   |     Cycle 215 register x has 12
+noop     Cycle 216 register x has 16
+addx   1 Cycle 217 register x has 16
+   |     Cycle 218 register x has 16
+addx   2 Cycle 219 register x has 17. Strength 3740
+   |     Cycle 220 register x has 17
+addx   5 Cycle 221 register x has 19
+   |     Cycle 222 register x has 19
+addx   2 Cycle 223 register x has 24
+   |     Cycle 224 register x has 24
+noop     Cycle 225 register x has 26
+noop     Cycle 226 register x has 26
+addx  -6 Cycle 227 register x has 26
+   |     Cycle 228 register x has 26
+addx   9 Cycle 229 register x has 20
+   |     Cycle 230 register x has 20
+addx -18 Cycle 231 register x has 29
+   |     Cycle 232 register x has 29
+addx  25 Cycle 233 register x has 11
+   |     Cycle 234 register x has 11
+addx   3 Cycle 235 register x has 36
+   |     Cycle 236 register x has 36
+noop     Cycle 237 register x has 39
+addx -17 Cycle 238 register x has 39
+   |     Cycle 239 register x has 39
+noop     Cycle 240 register x has 22
+[340, 180, 3700, 4480, 1620, 3740]
+Part 1 14060
