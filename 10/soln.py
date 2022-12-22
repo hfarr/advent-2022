@@ -38,13 +38,16 @@ def compute(instructions: List[Tuple[str, int]]):
     nonlocal cycle
     print(f" Cycle {cycle:3} register x has", register_x, end="")
     # increment before or after we take a signal measurement?
-    cycle += 1
     if (cycle - 20) % 40 == 0:
       # print("ADDING STRENGTH at cycle", cycle)
       strengths.append(cycle * register_x)
       print(". Strength", cycle * register_x)
     else:
       print()
+
+    # oops, looks like this DOES matter. I have a flaw in my logic where I say this is an "atomic" op and therefore doesn't matter.
+    # investigate?
+    cycle += 1
 
   while len(instructions) > 0:
     instr, maybe_val = instructions.pop(0)
@@ -87,6 +90,8 @@ def main():
   # attempt 2, 10380. still too low. I was reading instructions backwards in part 1 (needed to pop from beginning)
   # attempt 3, 14060. I was adding in values at the wrong time, ugh. it's wrong but they won't tell me too low or too high :(
     # but it is correct for someone else
+  # attemp 4 (technically, 6, since I submitted like multiple wrong guesses?) 15220
+    # I had an off by one error as a consequence of when I did an increment. I want to dig in...
 
 if __name__ == "__main__":
   main()
