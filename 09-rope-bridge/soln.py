@@ -114,7 +114,8 @@ def accumulute_unique_long_rope(knots: int, steps: List[Vec2D]):
       if rope[i - 1].distance(rope[i]) > 1:
         diff = rope[i - 1] - rope[i]
         rope[i] += diff.taxi_normal()
-        unique_positions.add(rope[i])
+
+    unique_positions.add(rope[-1])  # only the tail
   
   return len(unique_positions)
 
