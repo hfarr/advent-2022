@@ -145,7 +145,7 @@ def main():
   vecspect(answer_1, test_1)
 
   answer_2 = part_2(10, steps)
-  print("Part 2", answer_2, "unique positions") # currently 12718, which is too high
+  print("Part 2", answer_2, "unique positions") # 2516, correct
 
 
 def vecspect(expected, actual, iter=None):
