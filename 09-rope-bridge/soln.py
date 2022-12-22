@@ -1,4 +1,6 @@
 from __future__ import annotations
+from enum import unique
+from itertools import accumulate
 
 from sys import argv
 from typing import List
@@ -100,7 +102,24 @@ def accumulate_unique_tail_positions(steps: List[Vec2D]):
   # print(len(unique_positions), unique_count)
   return len(unique_positions)
 
+def accumulute_unique_long_rope(knots: int, steps: List[Vec2D]):
+  # origin = Vec2D(0,0)
+  # I mean... linked list, yeah? doubly so? mer
+  rope = [ Vec2D(0,0) for _ in range(knots) ]
+  unique_positions = { rope[-1] }
+
+  for step in steps:
+    rope[0] += step
+    for i in range(1, len(rope)):  # see a doubly linked list.. we could visit node.parent instead of rope[i-1]
+      if rope[i - 1].distance(rope[i]) > 1:
+        diff = rope[i - 1] - rope[i]
+        rope[i] += diff.taxi_normal()
+        unique_positions.add(rope[i])
+  
+  return len(unique_positions)
+
 part_1 = accumulate_unique_tail_positions
+part_2 = accumulute_unique_long_rope
 
 def parse_step_from_line(line: str):
   direction, amount = line.split()
@@ -120,6 +139,12 @@ def main():
   answer_1 = part_1(steps) # currently 8922, which is too high
   # wait it's correct now with 6190... oh because I was missing __eq__ in Vec2D
   print("Part 1", answer_1, "unique positions")
+
+  test_1 = part_2(2, steps) # should match answer_1
+  vecspect(answer_1, test_1)
+
+  answer_2 = part_2(10, steps)
+  print("Part 2", answer_2, "unique positions") # currently 12718, which is too high
 
 
 def vecspect(expected, actual, iter=None):
