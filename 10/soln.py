@@ -6,12 +6,9 @@ def parse_instructions(lines: List[str]):
 
   instructions = []
   for line in lines:
-    print(line)
     if line == "noop":
-      print('a')
       instructions.append( ("noop", None ) )
     else: # addx
-      print('b')
       _, value = line.split()
       instructions.append( ("addx", int(value)) )
   return instructions
@@ -57,6 +54,7 @@ def compute(instructions: List[Tuple[str, int]]):
       register_x += maybe_val
   
   print(strengths)
+  return strengths
 
 
   # modeling multi-cycle clock instructions... where we take a measurement everytime the cycle increments.
@@ -69,11 +67,15 @@ def compute(instructions: List[Tuple[str, int]]):
   #   if instr == "addx":
   #     pass
 
+def part_1(signals):
+  return sum(signals[:6])
+
 
 def main():
   lines = [ l.strip() for l in open(argv[1]).readlines() ]
   instructions = parse_instructions(lines)
-  compute(instructions)
+  answer_1 = part_1(compute(instructions))
+  print("Part 1", answer_1) # 2580, which is too low
 
 if __name__ == "__main__":
   main()
