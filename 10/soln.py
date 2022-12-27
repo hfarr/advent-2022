@@ -47,6 +47,9 @@ def compute(instructions: List[Tuple[str, int]]):
 
     # oops, looks like this DOES matter. I have a flaw in my logic where I say this is an "atomic" op and therefore doesn't matter.
     # investigate?
+    # The flaw here is we need to read the strength when the cycle is 20, 60, etc. but when incrementing ahead of the check
+    # we'd be checking value at cycle 19, 59... etc., then incrementing, so it would pass the check falsely.
+    # or something like that
     cycle += 1
 
   while len(instructions) > 0:
